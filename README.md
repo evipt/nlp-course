@@ -72,3 +72,56 @@ Note: Github has issues displaying the python notebook downloaded from colab(202
 </table>
 The easiest way to view the course content is via the static [nbviewer](https://nbviewer.jupyter.org/github/coastalcph/nlp-course/blob/master/overview.ipynb). 
 To be able to make changes to the book and render it dynamically, see the [installation instructions](INSTALL.md).
+
+
+# 🚀 Workflow Cheat Sheet (Fork + venv)
+
+## 1. First-time setup (done once)
+
+```bash
+# check current remotes
+git remote -v
+
+# rename original repo remote → upstream
+git remote rename origin upstream
+
+# add your fork as origin (replace YOURNAME)
+git remote add origin git@github.com:evipt/nlp-course.git
+
+# disable pushing to upstream for safety
+git remote set-url --push upstream DISABLE
+
+# origin = your fork (read + write)
+# upstream = course/original repo (read-only)
+```
+
+## 2. Daily workflow (work on notebooks)
+Activate venv and open VS Code:
+
+```bash
+cd ~/nlp-course
+source nlp_venv/bin/activate
+code .
+```
+
+Make changes in notebooks, then commit & push to your fork:
+```bash
+git add my_notebook.ipynb
+git commit -m "Finished exercise X"
+git push origin main
+```
+
+## 3. Sync with original repo (when new material is published)
+```bash
+git pull upstream main     # get latest updates from the course repo
+git push origin main       # push them into your fork
+```
+
+## 4. Verify you are pushing to your fork (safety check)
+Check your branch and remote tracking:
+```bash
+git branch -vv
+
+# Expected output:
+# * main  abc123 [origin/main] Finished exercise X
+```
